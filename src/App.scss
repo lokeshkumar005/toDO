@@ -46,6 +46,7 @@ html{
   .btn{
     font-size: 1.5rem;
     padding: 2px 9px;
+    cursor: pointer;
   }
 }
 
@@ -64,10 +65,29 @@ html{
     margin-top: 2rem;
   }
 
+  &__edit{
+    margin-top: .5rem;
+    input{
+      width: 85%;
+      padding: 2px 7px;
+      border-radius: 5px 0 0 5px;
+      border: 1px solid gray;
+    }
+
+    button{
+       padding: 2px 7px;
+       border-radius: 0 5px 5px 0;
+       border: 1px solid gray;
+       background-color: gray;
+       color: whitesmoke;
+    }
+  }
+
   h1{
     // text-align: center;
+
     border-bottom: 2px solid gray;
-    width: 8rem;
+    width: 13rem;
     margin: auto;
   }
  
@@ -78,10 +98,11 @@ html{
     border-bottom: 1px solid rgb(200, 200, 200);
 
     i{
+      font-size: 1.4rem;
       cursor: pointer;
-      margin: 0 5px;
-      padding: 0 8px;
+      margin-right:1.8rem;
     }
+    
   }
 
   &__item{
@@ -96,6 +117,7 @@ html{
   }
   .checkColor{
     color: #ff6c6c;
+    font-weight: 600;
   }
 }
 

@@ -3,7 +3,7 @@ import todoContext from "../context/todo-context";
 
 function TodoInput() {
   const [todo, setTodo] = useState("");
-  const { addTodo } = useContext(todoContext);
+  const { todos, addTodo } = useContext(todoContext);
 
   const onChange = (e) => {
     setTodo(e.target.value);
@@ -13,13 +13,14 @@ function TodoInput() {
     e.preventDefault();
 
     const newTodo = {
-      id: Math.random(),
+      id: todos?.length + 1 ?? 1,
       text: todo,
     };
 
     addTodo(newTodo);
     setTodo("");
   };
+
   return (
     <>
       <div className="container my-5 addTodo">

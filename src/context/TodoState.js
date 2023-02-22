@@ -1,7 +1,12 @@
 import React, { useReducer } from "react";
 import TodoContext from "./todo-context";
 import todoReducer from "./todo-reducer";
-import { ADD_TODO, DELETE_TODO, CHECK_TODO } from "./todo-actions";
+import {
+  ADD_TODO,
+  DELETE_TODO,
+  TOGGLE_CHECK_TODO,
+  EDIT_TODO,
+} from "./todo-actions";
 
 const getLocalData = () => {
   let listItem = localStorage.getItem("todoList");
@@ -13,11 +18,11 @@ const getLocalData = () => {
   }
 };
 
-function TodoState({ children }) {
-  const initialState = {
-    todos: getLocalData(),
-  };
+const initialState = {
+  todos: getLocalData(),
+};
 
+function TodoState({ children }) {
   const [state, dispatch] = useReducer(todoReducer, initialState);
 
   const addTodo = (todo) => {
@@ -34,10 +39,17 @@ function TodoState({ children }) {
     });
   };
 
-  const checkTodo = (todoID) => {
+  const toggleCheckTodo = (todoID) => {
     dispatch({
-      type: CHECK_TODO,
+      type: TOGGLE_CHECK_TODO,
       payload: todoID,
+    });
+  };
+
+  const editTodo = (id, text) => {
+    dispatch({
+      type: EDIT_TODO,
+      payload: { id, text },
     });
   };
 
@@ -66,7 +78,14 @@ function TodoState({ children }) {
 
   return (
     <TodoContext.Provider
-      value={{ todos: state.todos, addTodo, deleteTodo, checkTodo, date }}
+      value={{
+        todos: state.todos,
+        addTodo,
+        deleteTodo,
+        toggleCheckTodo,
+        editTodo,
+        date,
+      }}
     >
       {children}
     </TodoContext.Provider>

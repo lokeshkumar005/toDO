@@ -1,4 +1,9 @@
-import { ADD_TODO, DELETE_TODO, CHECK_TODO } from "./todo-actions";
+import {
+  ADD_TODO,
+  DELETE_TODO,
+  TOGGLE_CHECK_TODO,
+  EDIT_TODO,
+} from "./todo-actions";
 
 const todoReducer = (state, action) => {
   switch (action.type) {
@@ -7,19 +12,35 @@ const todoReducer = (state, action) => {
         ...state,
         todos: [...state.todos, action.payload],
       };
+
     case DELETE_TODO:
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== action.payload),
       };
-    case CHECK_TODO:
-      const checked = state.todos.map((todo) => {
-        if (todo.id === action.payload) {
-          todo.completed = true;
-        }
-        return todo;
-      });
-      return { ...state.todos, todos: checked };
+
+    case TOGGLE_CHECK_TODO:
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          const todoCopy = { ...todo };
+          if (todo.id === action.payload) {
+            todoCopy.completed = !todo.completed;
+          }
+          return todoCopy;
+        }),
+      };
+
+    case EDIT_TODO:
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if (todo.id === action.payload.id) {
+            return { ...todo, text: action.payload.text };
+          }
+          return todo;
+        }),
+      };
 
     default:
       return state;
